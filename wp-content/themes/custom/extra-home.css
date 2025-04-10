@@ -1,0 +1,19 @@
+.archive-pagination ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .archive-pagination li a {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  .pagination-omission {
+    padding: 8px 12px;
+    color: #888;
+    user-select: none;
+  }
