@@ -56,14 +56,10 @@
   <!-- <link rel="https://api.w.org/" href="https://www.jobkaka.com/wp-json/" /> -->
   <!-- <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.jobkaka.com/xmlrpc.php?rsd" /> -->
   <meta name="generator" content="WordPress 6.7.2" />
-  <link rel="icon" href="wp-content/uploads/fabicon-32x32.png"
-    sizes="32x32" />
-  <link rel="icon" href="wp-content/uploads/fabicon-192x192.png"
-    sizes="192x192" />
-  <link rel="apple-touch-icon"
-    href="wp-content/uploads/fabicon-180x180.png" />
-  <meta name="msapplication-TileImage"
-    content="wp-content/uploads/fabicon-270x270.png" />
+  <link rel="icon" href="wp-content/uploads/fabicon-32x32.png" sizes="32x32" />
+  <link rel="icon" href="wp-content/uploads/fabicon-192x192.png" sizes="192x192" />
+  <link rel="apple-touch-icon"  href="wp-content/uploads/fabicon-180x180.png" />
+  <meta name="msapplication-TileImage" content="wp-content/uploads/fabicon-270x270.png" />
  
   <link rel='stylesheet' href='wp-content/themes/custom/wp-custom.css' type='text/css' media='all' />
   <link rel='stylesheet' href='wp-content/themes/custom/extra-home.css' type='text/css' media='all' />
@@ -426,7 +422,7 @@
 
     <?php include '_footer.php'; ?>
   </div>
-  
+
   <?php $conn->close(); ?>
 
   <script>

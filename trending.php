@@ -185,6 +185,7 @@
               FROM tbl_job j
               LEFT JOIN tbl_job_types ON j.job_type_id = tbl_job_types.id
               LEFT JOIN tbl_qualifications ON j.qualification_id = tbl_qualifications.q_id
+              WHERE j.trending_status = 1
               ORDER BY j.updated_on DESC 
               LIMIT $jobsPerPage OFFSET $offset";
 
