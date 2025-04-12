@@ -4,15 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7506518501886922"
-     crossorigin="anonymous"></script><meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' /> -->
   <style>
     img:is([sizes="auto" i], [sizes^="auto," i]) {
       contain-intrinsic-size: 3000px 1500px
     }
   </style>
 
-  <!-- This site is optimized with the Yoast SEO Premium plugin v21.5 (Yoast SEO v24.6) - https://yoast.com/wordpress/plugins/seo/ -->
   <title>Job Kaka - Navigating Careers, Creating Futures.</title>
   <link rel="preload" data-rocket-preload as="image" href="wp-content/uploads/logo-4.png" imagesrcset="wp-content/uploads/logo-4.png 996w, wp-content/uploads/logo-4-300x66.png 300w, wp-content/uploads/logo-4-768x168.png 768w" imagesizes="(max-width: 996px) 100vw, 996px" fetchpriority="high">
   <meta name="description" content="Navigating Careers, Creating Futures." />
@@ -44,8 +41,7 @@
   <script type="text/javascript" src="wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
   <script type="text/javascript" src="wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
   <script type="text/javascript" src="wp-content/plugins/wp-rest-filter/public/js/wp-rest-filter-public.js?ver=1.4.3" id="wp-rest-filter-js"></script>
-  <!-- <link rel="https://api.w.org/" href="https://www.jobkaka.com/wp-json/" /> -->
-  <!-- <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.jobkaka.com/xmlrpc.php?rsd" /> -->
+  
   <meta name="generator" content="WordPress 6.7.2" />
   <link rel="icon" href="wp-content/uploads/fabicon-32x32.png" sizes="32x32" />
   <link rel="icon" href="wp-content/uploads/fabicon-192x192.png" sizes="192x192" />
@@ -55,16 +51,6 @@
   <link rel='stylesheet' href='wp-content/themes/custom/wp-custom.css' type='text/css' media='all' />
   <link rel='stylesheet' href='wp-content/themes/custom/extra-home.css' type='text/css' media='all' />
 
-  <!-- Google Tag Manager -->
-  <!-- <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-M78QBW4');</script> -->
-  <!-- End Google Tag Manager -->
   <meta name="generator" content="WP Rocket 3.18.2" data-wpr-features="wpr_oci wpr_preload_links wpr_desktop" />
 </head>
 
@@ -77,6 +63,11 @@
     $offset = ($page - 1) * $jobsPerPage;
 
     $searchTerm = isset($_GET['s']) ? trim($_GET['s']) : '';
+    $urlSlug = isset($_GET['slug']) ? trim($_GET['slug']) : '';
+    
+    $slugHeading = ucwords(str_replace('-', ' ', $urlSlug)); 
+    // print_r($parts); echo "<br/>";
+    // print_r($urlSlug); die;
   ?>
   <div class="site-container">
 
@@ -85,171 +76,98 @@
     <div class="site-inner">
       <div class="content-sidebar-wrap">
         <main class="content">
-          <div class="home-search">
-            <div class="search-area-kaka">
-              <center>
-                <div class="kaka-search">
-                  <form class="search-form" method="get" action="index.php" role="search">
-                    <label class="search-form-label screen-reader-text" for="searchform-1">Search Jobs</label>
-                      <!-- <input required class="search-form-input" type="search" name="s" id="searchform-1" placeholder="Search Jobs">  -->
-
-                      <input required class="search-form-input" type="search" name="s" id="searchform-1"
-                         placeholder="Search Jobs" value="<?php echo isset($_GET['s']) ? htmlspecialchars($_GET['s']) : ''; ?>">
-
-                      <button type="submit" class="search-form-submit" aria-label="Search">
-                      <svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" class="search-icon">
-                        <path
-                          d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z">
-                        </path>
-                      </svg><span class="screen-reader-text">Search</span></button>
-                    <meta content="index.php?s={s}">
-                  </form>
-                </div>
-              </center>
+            <div class="archive-description taxonomy-archive-description taxonomy-description">
+                <h1 class="archive-title"><?php echo $slugHeading; ?></h1>
             </div>
 
-            <!-- hide this section if serch data true -->
-            <?php if (empty($searchTerm)) { ?>  
+            <div class="home-search">
 
-              <!-- Qualification -->
-              <div class="sort-kaka">
-                <b>Search by Qualification</b><br />
-                <?php
-                  $sql = "SELECT q_title, slug FROM tbl_qualifications WHERE home_status = 1 ORDER BY q_id ASC";
-                  $result = $conn->query($sql);
+                <div class="search-area-kaka">
+                <center>
+                    <div class="kaka-search">
+                    <form class="search-form" method="get" action="index.php" role="search">
+                        <label class="search-form-label screen-reader-text" for="searchform-1">Search Jobs</label>
+                        <!-- <input required class="search-form-input" type="search" name="s" id="searchform-1" placeholder="Search Jobs">  -->
 
-                  $qualifications = [];
-                  if ($result->num_rows > 0) {
-                    while($row = $result->fetch_assoc()) {
-                      $title = $row['q_title'];
-                      // $slug = $row['slug'];
-                      $slug = urlencode(str_replace('-', ' ', $row['slug'])); 
-                      // $slug = urlencode($title) . '+Jobs'; // slugify the title
+                        <input required class="search-form-input" type="search" name="s" id="searchform-1"
+                            placeholder="Search Jobs" value="<?php echo isset($_GET['s']) ? htmlspecialchars($_GET['s']) : ''; ?>">
 
-                      $qualifications[] = '<a href="index.php?s=' . $slug . '">' . htmlspecialchars($title) . ' Jobs</a>';
-                    }
-                    echo implode(' | ', $qualifications);
-                  } else {
-                    echo "No qualifications found.";
-                  }
-                ?>
-              </div>
-              <!-- Qualification -->
+                        <button type="submit" class="search-form-submit" aria-label="Search">
+                        <svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" class="search-icon">
+                            <path
+                            d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z">
+                            </path>
+                        </svg><span class="screen-reader-text">Search</span></button>
+                        <meta content="index.php?s={s}">
+                    </form>
+                    </div>
+                </center>
+                </div>
 
-              <!-- Type -->
-              <div class="sort-kaka">
-                <b>Search by Type</b><br />
-
-                <?php
-                  $sql = "SELECT home_title, category_slug FROM tbl_job_types WHERE home_status = 1 ORDER BY id ASC";
-                  $result = $conn->query($sql);
-
-                  $links = [];
-                  if ($result->num_rows > 0) {
-                    while($row = $result->fetch_assoc()) {
-                      $title = $row['home_title'];
-                      // $slug1 = $row['category_slug'];
-                      // print_r($slug1);
-                      $slug = urlencode(str_replace('-', ' ', $row['category_slug'])); 
-                      // echo "<br/>";
-                      // print_r($slug);die;
-                      $links[] = '<a href="index.php?s=' . $slug . '">' . htmlspecialchars($title) . '</a>';
-                    }
-
-                    echo implode(' | ', $links);
-                  } else {
-                    echo "No categories found.";
-                  }
-                ?>
-              </div>
-              <!-- Type -->
-
-              <!-- top jobs -->
-              <div class="kaka-main-heading">
-                <center><h1>Top Selected Jobs</h1></center>
-              </div>
-
-              <div class="trending-list-cl">
-                <div class="articles">
-                  <?php
-                    $sql = "SELECT 
-                                tbl_job.*,
-                                tbl_job_types.home_title AS job_type_name,
-                                tbl_qualifications.q_title AS qualification_name
-                            FROM tbl_job
-                            LEFT JOIN tbl_job_types ON tbl_job.job_type_id = tbl_job_types.id
-                            LEFT JOIN tbl_qualifications ON tbl_job.qualification_id = tbl_qualifications.q_id
-                            WHERE tbl_job.top_status = 1
-                            ORDER BY tbl_job.updated_on DESC
-                            LIMIT 10";
-
+                <!-- Qualification -->
+                <div class="sort-kaka">
+                    <b>Search by Qualification</b><br />
+                    <?php
+                    $sql = "SELECT q_title, slug FROM tbl_qualifications WHERE home_status = 1 ORDER BY q_id ASC";
                     $result = $conn->query($sql);
 
+                    $qualifications = [];
                     if ($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) {
-                            echo '
-                            <a class="content_link" href="' . htmlspecialchars($row['slug']) . '">
-                                <div class="entry-title">' . htmlspecialchars($row['job_title']) . '</div>
-                                <div class="bfooter">
-                                    <div class="entry-job-liner-1">
-                                        <span class="entry-job-date">Updated on </span>
-                                        <span class="entry-job-date-details">' . date("d F Y", strtotime($row['updated_on'])) . '</span>
-                                    </div>
-                                    <div class="entry-job-liner-1">
-                                        <span class="entry-job-date">Job Type </span>
-                                        <span class="entry-job-date-details">' . htmlspecialchars($row['job_type_name']) . '</span>
-                                    </div>
-                                    <div class="entry-job-liner-1">
-                                        <span class="entry-job-date">Qualification </span>
-                                        <span class="entry-job-date-details">' . htmlspecialchars($row['qualification_name']) . '</span>
-                                    </div>
-                                    <div class="entry-job-liner-1">
-                                        <span class="entry-job-date">Salary </span>
-                                        <span class="entry-job-date-details">' . htmlspecialchars($row['salary']) . '</span>
-                                    </div>
-                                </div>
-                            </a>';
+                        $title = $row['q_title'];
+                        // $slug = $row['slug'];
+                        $slug = urlencode(str_replace('-', ' ', $row['slug'])); 
+                        // $slug = urlencode($title) . '+Jobs'; // slugify the title
+
+                        $qualifications[] = '<a href="index.php?s=' . $slug . '">' . htmlspecialchars($title) . ' Jobs</a>';
                         }
+                        echo implode(' | ', $qualifications);
                     } else {
-                        echo "<p>No job posts found.</p>";
+                        echo "No qualifications found.";
                     }
-                  ?>
+                    ?>
                 </div>
-              </div>
+                <!-- Qualification -->
 
-              <div class="view-more-link"><a href="https://www.jobkaka.com/tag/trending/">View More Trending Jobs</a>
-              </div>
-              <!-- top jobs -->
+                <!-- Type -->
+                <div class="sort-kaka">
+                    <b>Search by Type</b><br />
 
-              <div class="kaka-main-heading">
-                <center>
-                  <h1>Latest Jobs List</h1>
-                </center>
-              </div>
+                    <?php
+                    $sql = "SELECT home_title, category_slug FROM tbl_job_types WHERE home_status = 1 ORDER BY id ASC";
+                    $result = $conn->query($sql);
 
-            <?php } ?>
+                    $links = [];
+                    if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                        $title = $row['home_title'];
+                        // $slug1 = $row['category_slug'];
+                        // print_r($slug1);
+                        $slug = urlencode(str_replace('-', ' ', $row['category_slug'])); 
+                        // echo "<br/>";
+                        // print_r($slug);die;
+                        $links[] = '<a href="index.php?s=' . $slug . '">' . htmlspecialchars($title) . '</a>';
+                        }
 
-          </div>
+                        echo implode(' | ', $links);
+                    } else {
+                        echo "No categories found.";
+                    }
+                    ?>
+                </div>
+                <!-- Type -->
 
-            <!-- Latest jobs -->
+                <div class="kaka-main-heading">
+                    <center>
+                    <h1>Result For <?php echo $slugHeading; ?> </h1>
+                    </center>
+                </div>
+
+            </div>
+
+            <!--start Latest jobs -->
             <div class="articles">
-            <?php
-                // SQL for pagination with JOINs to get names instead of IDs // without search 
-                // $sql = "SELECT 
-                // j.*, 
-                // tbl_job_types.home_title AS job_type_name, 
-                // tbl_qualifications.q_title AS qualification_name 
-                // FROM tbl_job j
-                // LEFT JOIN tbl_job_types ON j.job_type_id = tbl_job_types.id
-                // LEFT JOIN tbl_qualifications ON j.qualification_id = tbl_qualifications.q_id
-                // ORDER BY j.updated_on DESC 
-                // LIMIT $jobsPerPage OFFSET $offset";
-
-                // // Total jobs count
-                // $totalJobsResult = $conn->query("SELECT COUNT(*) AS total FROM tbl_job");
-                // $totalJobs = $totalJobsResult->fetch_assoc()['total'];
-                // $totalPages = ceil($totalJobs / $jobsPerPage);
-
+                <?php
                 $sql = "SELECT 
                             j.*, 
                             tbl_job_types.home_title AS job_type_name, 
@@ -260,24 +178,10 @@
                         LEFT JOIN tbl_job_types ON j.job_type_id = tbl_job_types.id
                         LEFT JOIN tbl_qualifications ON j.qualification_id = tbl_qualifications.q_id";
 
-                if (!empty($_GET['s'])) {
-                    // $searchTerm = trim(urldecode($_GET['s']));
-                    // print_r($_GET['s']);
-                    // $searchTerm = urldecode(str_replace(' ', '-', $_GET['s'])); 
-                    // echo "<br/>";
-                    // print_r($searchTerm);die;
-
-                    $searchTerm = urldecode(str_replace(' ', '-', $_GET['s'])); 
-                    // $searchTerm = str_ireplace('+Jobs', '', $searchTerm);
-                    $safeSearchTerm = $conn->real_escape_string($searchTerm);
-
+                if (!empty($urlSlug)) {                  
                     $sql .= " WHERE 
-                        j.job_title LIKE '%$safeSearchTerm%' 
-                        OR j.salary LIKE '%$safeSearchTerm%' 
-                        OR tbl_job_types.home_title LIKE '%$safeSearchTerm%' 
-                        OR tbl_job_types.category_slug LIKE '%$safeSearchTerm%' 
-                        OR tbl_qualifications.q_title LIKE '%$safeSearchTerm%' 
-                        OR tbl_qualifications.slug LIKE '%$safeSearchTerm%'";
+                        tbl_job_types.home_title LIKE '%$urlSlug%' 
+                        OR tbl_job_types.category_slug LIKE '%$urlSlug%'";
                 }
                 $sql .= " ORDER BY j.updated_on DESC LIMIT $jobsPerPage OFFSET $offset";
 
@@ -287,14 +191,10 @@
                             LEFT JOIN tbl_job_types ON j.job_type_id = tbl_job_types.id
                             LEFT JOIN tbl_qualifications ON j.qualification_id = tbl_qualifications.q_id";
 
-                if (!empty($searchTerm)) {
+                if (!empty($urlSlug)) {
                     $countSql .= " WHERE 
-                        j.job_title LIKE '%$safeSearchTerm%' 
-                        OR j.salary LIKE '%$safeSearchTerm%' 
-                        OR tbl_job_types.home_title LIKE '%$safeSearchTerm%' 
-                        OR tbl_job_types.category_slug LIKE '%$safeSearchTerm%' 
-                        OR tbl_qualifications.q_title LIKE '%$safeSearchTerm%' 
-                        OR tbl_qualifications.slug LIKE '%$safeSearchTerm%'";
+                        tbl_job_types.home_title LIKE '%$urlSlug%' 
+                        OR tbl_job_types.category_slug LIKE '%$urlSlug%'"; 
                 }
                 $totalJobsResult = $conn->query($countSql);
                 $totalJobs = $totalJobsResult->fetch_assoc()['total'];
@@ -334,55 +234,52 @@
             </div>
             
             <!-- Pagination -->
-            <?php
-                $adjacents = 1; // how many pages before/after current page to show
-                $baseURL = strtok($_SERVER["REQUEST_URI"], '?');
+                <?php
+                    $adjacents = 1; // how many pages before/after current page to show
+                    $baseURL = strtok($_SERVER["REQUEST_URI"], '?');
 
-                echo '<div class="archive-pagination pagination" role="navigation" aria-label="Pagination"><ul>';
+                    echo '<div class="archive-pagination pagination" role="navigation" aria-label="Pagination"><ul>';
 
-                if ($page > 1) {
-                  echo '<li><a href="?page=' . ($page - 1) . '">« Prev</a></li>';
-                }
-
-                if ($totalPages <= 7 + ($adjacents * 2)) {
-                  // Not enough pages to hide
-                  for ($i = 1; $i <= $totalPages; $i++) {
-                    echo '<li class="' . ($i == $page ? 'active' : '') . '"><a href="?page=' . $i . '">' . $i . '</a></li>';
-                  }
-                } else {
-                  if ($page <= 3 + $adjacents) {
-                    // Close to beginning
-                    for ($i = 1; $i <= 3 + $adjacents; $i++) {
-                      echo '<li class="' . ($i == $page ? 'active' : '') . '"><a href="?page=' . $i . '">' . $i . '</a></li>';
+                    if ($page > 1) {
+                    echo '<li><a href="?page=' . ($page - 1) . '">« Prev</a></li>';
                     }
-                    echo '<li class="pagination-omission">…</li>';
-                    echo '<li><a href="?page=' . $totalPages . '">' . $totalPages . '</a></li>';
-                  } elseif ($page >= $totalPages - ($adjacents + 2)) {
-                    // Close to end
-                    echo '<li><a href="?page=1">1</a></li>';
-                    echo '<li class="pagination-omission">…</li>';
-                    for ($i = $totalPages - ($adjacents + 2); $i <= $totalPages; $i++) {
-                      echo '<li class="' . ($i == $page ? 'active' : '') . '"><a href="?page=' . $i . '">' . $i . '</a></li>';
+                    if ($totalPages <= 7 + ($adjacents * 2)) {
+                    // Not enough pages to hide
+                    for ($i = 1; $i <= $totalPages; $i++) {
+                        echo '<li class="' . ($i == $page ? 'active' : '') . '"><a href="?page=' . $i . '">' . $i . '</a></li>';
                     }
-                  } else {
-                    // In middle
-                    echo '<li><a href="?page=1">1</a></li>';
-                    echo '<li class="pagination-omission">…</li>';
-                    for ($i = $page - $adjacents; $i <= $page + $adjacents; $i++) {
-                      echo '<li class="' . ($i == $page ? 'active' : '') . '"><a href="?page=' . $i . '">' . $i . '</a></li>';
+                    } else {
+                    if ($page <= 3 + $adjacents) {
+                        // Close to beginning
+                        for ($i = 1; $i <= 3 + $adjacents; $i++) {
+                        echo '<li class="' . ($i == $page ? 'active' : '') . '"><a href="?page=' . $i . '">' . $i . '</a></li>';
+                        }
+                        echo '<li class="pagination-omission">…</li>';
+                        echo '<li><a href="?page=' . $totalPages . '">' . $totalPages . '</a></li>';
+                    } elseif ($page >= $totalPages - ($adjacents + 2)) {
+                        // Close to end
+                        echo '<li><a href="?page=1">1</a></li>';
+                        echo '<li class="pagination-omission">…</li>';
+                        for ($i = $totalPages - ($adjacents + 2); $i <= $totalPages; $i++) {
+                        echo '<li class="' . ($i == $page ? 'active' : '') . '"><a href="?page=' . $i . '">' . $i . '</a></li>';
+                        }
+                    } else {
+                        // In middle
+                        echo '<li><a href="?page=1">1</a></li>';
+                        echo '<li class="pagination-omission">…</li>';
+                        for ($i = $page - $adjacents; $i <= $page + $adjacents; $i++) {
+                        echo '<li class="' . ($i == $page ? 'active' : '') . '"><a href="?page=' . $i . '">' . $i . '</a></li>';
+                        }
+                        echo '<li class="pagination-omission">…</li>';
+                        echo '<li><a href="?page=' . $totalPages . '">' . $totalPages . '</a></li>';
                     }
-                    echo '<li class="pagination-omission">…</li>';
-                    echo '<li><a href="?page=' . $totalPages . '">' . $totalPages . '</a></li>';
-                  }
-                }
-
-                if ($page < $totalPages) {
-                  echo '<li class="pagination-next"><a href="?page=' . ($page + 1) . '">Next Page »</a></li>';
-                }
-
-                echo '</ul></div>';
-            ?>
-            <!-- Latest jobs -->
+                    }
+                    if ($page < $totalPages) {
+                    echo '<li class="pagination-next"><a href="?page=' . ($page + 1) . '">Next Page »</a></li>';
+                    }
+                    echo '</ul></div>';
+                ?>
+            <!--end Latest jobs -->
 
         </main>
       </div>
@@ -433,10 +330,6 @@
     }());
   </script>
   <script type="text/javascript" src="wp-content/themes/genesis-sample/js/genesis-sample.js?ver=2.6.0" id="genesis-sample-js"></script>
-  <!-- Google Tag Manager (noscript) -->
-  <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M78QBW4" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript> -->
-  <!-- End Google Tag Manager (noscript) -->
+ 
 </body>
-
 </html>
