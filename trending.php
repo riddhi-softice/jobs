@@ -93,7 +93,7 @@
 
   <!-- <link rel="https://api.w.org/" href="https://www.jobkaka.com/wp-json/" /> -->
   <!-- <link rel="alternate" title="JSON" type="application/json" href="https://www.jobkaka.com/wp-json/wp/v2/tags/20" /> -->
-  <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.jobkaka.com/xmlrpc.php?rsd" />
+  <!-- <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.jobkaka.com/xmlrpc.php?rsd" /> -->
   <meta name="generator" content="WordPress 6.7.2" />
   <link rel="icon" href="wp-content/uploads/fabicon-32x32.png" sizes="32x32" />
   <link rel="icon" href="wp-content/uploads/fabicon-192x192.png" sizes="192x192" />
@@ -136,29 +136,32 @@
             <div class="code-block-label">Advertisements</div>
               <pubguru data-pg-ad="jobkaka_infeed_Test" ></pubguru>
           </div> -->
-          <div class="kaka-main-heading">
+          <!-- <div class="kaka-main-heading">
             <center>
               <h2>Search Jobs</h2>
             </center>
-          </div>
+          </div> -->
       </div>
 
       <div class="home-search">
         <div class="search-area-kaka">
           <center>
-            <div class="kaka-search">
-              <form class="search-form" method="get" action="https://www.jobkaka.com/" role="search"><label
-                  class="search-form-label screen-reader-text" for="searchform-1">Search Jobs</label><input required
-                  class="search-form-input" type="search" name="s" id="searchform-1" placeholder="Search Jobs"><button
-                  type="submit" class="search-form-submit" aria-label="Search"><svg xmlns="https://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512" class="search-icon">
-                    <path
-                      d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z">
-                    </path>
-                  </svg><span class="screen-reader-text">Search</span></button>
-                <meta content="https://www.jobkaka.com/?s={s}">
-              </form>
-            </div>
+              <div class="kaka-search">
+                <form class="search-form" method="get" action="trending.php" role="search">
+                  <label class="search-form-label screen-reader-text" for="searchform-1">Search Jobs</label>
+
+                    <input required class="search-form-input" type="search" name="s" id="searchform-1"
+                        placeholder="Search Jobs" value="<?php echo isset($_GET['s']) ? htmlspecialchars($_GET['s']) : ''; ?>">
+
+                    <button type="submit" class="search-form-submit" aria-label="Search">
+                    <svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" class="search-icon">
+                      <path
+                        d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z">
+                      </path>
+                    </svg><span class="screen-reader-text">Search</span></button>
+                  <meta content="trending.php?s={s}">
+                </form>
+              </div>
           </center>
         </div>
         <div class="kaka-main-heading">
@@ -179,52 +182,79 @@
           <div class="articles">
           <?php
             // $sql = "SELECT * FROM tbl_job ORDER BY updated_on DESC LIMIT 5";
-           // SQL for pagination with JOINs to get names instead of IDs
-              $sql = "SELECT 
-              j.*, 
-              tbl_job_types.home_title AS job_type_name, 
-              tbl_qualifications.q_title AS qualification_name 
-              FROM tbl_job j
-              LEFT JOIN tbl_job_types ON j.job_type_id = tbl_job_types.id
-              LEFT JOIN tbl_qualifications ON j.qualification_id = tbl_qualifications.q_id
-              WHERE j.trending_status = 1
-              ORDER BY j.updated_on DESC 
-              LIMIT $jobsPerPage OFFSET $offset";
-
-              // Total jobs count
-              $totalJobsResult = $conn->query("SELECT COUNT(*) AS total FROM tbl_job");
-              $totalJobs = $totalJobsResult->fetch_assoc()['total'];
-              $totalPages = ceil($totalJobs / $jobsPerPage);
-
+            // SQL for pagination with JOINs to get names instead of IDs
+            $searchTerm = mysqli_real_escape_string($conn, $searchTerm);
+               
+            $sql = "SELECT 
+                        j.*, 
+                        tbl_job_types.home_title AS job_type_name, 
+                        tbl_qualifications.q_title AS qualification_name 
+                    FROM tbl_job j
+                    LEFT JOIN tbl_job_types ON j.job_type_id = tbl_job_types.id
+                    LEFT JOIN tbl_qualifications ON j.qualification_id = tbl_qualifications.q_id
+                    WHERE j.trending_status = 1";
+            
+            if (!empty($searchTerm)) {
+                $sql .= " AND (
+                    j.job_title LIKE '%$searchTerm%' 
+                    OR j.salary LIKE '%$searchTerm%' 
+                    OR tbl_job_types.home_title LIKE '%$searchTerm%' 
+                    OR tbl_qualifications.q_title LIKE '%$searchTerm%'
+                )";
+            }
+            
+            $sql .= " ORDER BY j.updated_on DESC 
+                      LIMIT $jobsPerPage OFFSET $offset";
+            
+            // Count total matching jobs (for pagination)
+            $countSql = "SELECT COUNT(*) AS total 
+                         FROM tbl_job j
+                         LEFT JOIN tbl_job_types ON j.job_type_id = tbl_job_types.id
+                         LEFT JOIN tbl_qualifications ON j.qualification_id = tbl_qualifications.q_id
+                         WHERE j.trending_status = 1";
+            
+            if (!empty($searchTerm)) {
+                $countSql .= " AND (
+                    j.job_title LIKE '%$searchTerm%' 
+                    OR j.salary LIKE '%$searchTerm%' 
+                    OR tbl_job_types.home_title LIKE '%$searchTerm%' 
+                    OR tbl_qualifications.q_title LIKE '%$searchTerm%'
+                )";
+            }
+            
+            $totalJobsResult = $conn->query($countSql);
+            $totalJobs = $totalJobsResult->fetch_assoc()['total'];
+            $totalPages = ceil($totalJobs / $jobsPerPage);
+            
               // Fetch and display jobs
               $result = $conn->query($sql);
               if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                   echo '
                   <a class="content_link" href="' . htmlspecialchars($row['slug']) . '">
-                  <div class="entry-title">' . htmlspecialchars($row['job_title']) . '</div>
-                  <div class="bfooter">
-                      <div class="entry-job-liner-1">
-                          <span class="entry-job-date">Updated on </span>
-                          <span class="entry-job-date-details">' . date("d F Y", strtotime($row['updated_on'])) . '</span>
-                      </div>
-                      <div class="entry-job-liner-1">
-                          <span class="entry-job-date">Job Type </span>
-                          <span class="entry-job-date-details">' . htmlspecialchars($row['job_type_name']) . '</span>
-                      </div>
-                      <div class="entry-job-liner-1">
-                          <span class="entry-job-date">Qualification </span>
-                          <span class="entry-job-date-details">' . htmlspecialchars($row['qualification_name']) . '</span>
-                      </div>
-                      <div class="entry-job-liner-1">
-                          <span class="entry-job-date">Salary </span>
-                          <span class="entry-job-date-details">' . htmlspecialchars($row['salary']) . '</span>
-                      </div>
-                  </div>
+                    <div class="entry-title">' . htmlspecialchars($row['job_title']) . '</div>
+                    <div class="bfooter">
+                        <div class="entry-job-liner-1">
+                            <span class="entry-job-date">Updated on </span>
+                            <span class="entry-job-date-details">' . date("d F Y", strtotime($row['updated_on'])) . '</span>
+                        </div>
+                        <div class="entry-job-liner-1">
+                            <span class="entry-job-date">Job Type </span>
+                            <span class="entry-job-date-details">' . htmlspecialchars($row['job_type_name']) . '</span>
+                        </div>
+                        <div class="entry-job-liner-1">
+                            <span class="entry-job-date">Qualification </span>
+                            <span class="entry-job-date-details">' . htmlspecialchars($row['qualification_name']) . '</span>
+                        </div>
+                        <div class="entry-job-liner-1">
+                            <span class="entry-job-date">Salary </span>
+                            <span class="entry-job-date-details">' . htmlspecialchars($row['salary']) . '</span>
+                        </div>
+                    </div>
                   </a>';
                 }
               } else {
-                echo "<p>No job posts found.</p>";
+                echo "</div><p>No job posts found.</p>";
               }
             ?>
           </div>
@@ -278,7 +308,7 @@
 
               echo '</ul></div>';
           ?>
-          <!-- Latest jobs -->
+        <!-- Latest jobs -->
       
       </main>
     </div>

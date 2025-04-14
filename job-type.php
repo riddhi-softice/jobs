@@ -82,7 +82,7 @@
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
                                             
-                                            $link = 'https://www.jobkaka.com/tag/' . htmlspecialchars($row['category_slug']) . '/';
+                                            $link = 'category.php'. '?slug=' . htmlspecialchars($row['category_slug']);
                                             $label = htmlspecialchars($row['category_title']);
 
                                             echo '<div><a href="' . $link . '"><button>⇒ ' . $label . '</button></a></div>';
@@ -100,7 +100,6 @@
         </div>
         
         <?php include '_footer.php'; ?>
-        
     </div>
                                         
 <?php $conn->close(); ?>

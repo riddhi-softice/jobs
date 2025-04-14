@@ -88,7 +88,7 @@
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
 
-                                            $link = 'https://www.jobkaka.com/tag/' . htmlspecialchars($row['slug']) . '/';
+                                            $link = 'tag.php'. '?slug=' . htmlspecialchars($row['slug']);
                                             $label = htmlspecialchars($row['q_title']);
 
                                             echo '<div><a href="' . $link . '"><button>⇒ ' . $label . '</button></a></div>';

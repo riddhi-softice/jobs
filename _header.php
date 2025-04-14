@@ -15,19 +15,19 @@
             <ul id="menu-header-menu" class="menu genesis-nav-menu menu-primary js-superfish">
 
               <li id="menu-item-599" class="trending menu-item menu-item-type-custom menu-item-object-custom menu-item-599">
-                <a href="https://www.jobkaka.com/tag/trending/">
+                <a href="trending.php">
                   <span><i class="fas fa-fire"></i> Trending</span>
                 </a>
               </li>
 
               <li id="menu-item-598" class="qualification menu-item menu-item-type-post_type menu-item-object-page menu-item-598">
-                <a href="https://www.jobkaka.com/qualifications/">
+                <a href="qualifications.php">
                   <span><i class="fas fa-user-graduate"></i> Qualification</span>
                 </a>
               </li>
 
               <li id="menu-item-597" class="type menu-item menu-item-type-post_type menu-item-object-page menu-item-597">
-                <a href="https://www.jobkaka.com/job-type/">
+                <a href="job-type.php">
                   <span><i class="fas fa-briefcase"></i> Job Type</span>
                 </a>
               </li>

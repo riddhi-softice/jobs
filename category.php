@@ -66,7 +66,7 @@
     $urlSlug = isset($_GET['slug']) ? trim($_GET['slug']) : '';
     
     $slugHeading = ucwords(str_replace('-', ' ', $urlSlug)); 
-    // print_r($parts); echo "<br/>";
+    // print_r($searchTerm); echo "<br/>";
     // print_r($urlSlug); die;
   ?>
   <div class="site-container">
@@ -82,86 +82,86 @@
 
             <div class="home-search">
 
-                <div class="search-area-kaka">
-                <center>
-                    <div class="kaka-search">
-                    <form class="search-form" method="get" action="index.php" role="search">
-                        <label class="search-form-label screen-reader-text" for="searchform-1">Search Jobs</label>
-                        <!-- <input required class="search-form-input" type="search" name="s" id="searchform-1" placeholder="Search Jobs">  -->
+              <div class="search-area-kaka">
+                  <center>
+                  <div class="kaka-search">
+                    <form class="search-form" method="get" action="category.php" role="search">
+                      <label class="search-form-label screen-reader-text" for="searchform-1">Search Jobs</label>
+                        
+                        <input type="hidden" name="slug" value="<?php echo $urlSlug; ?>">
 
                         <input required class="search-form-input" type="search" name="s" id="searchform-1"
-                            placeholder="Search Jobs" value="<?php echo isset($_GET['s']) ? htmlspecialchars($_GET['s']) : ''; ?>">
+                          placeholder="Search Jobs" value="<?php echo isset($_GET['s']) ? htmlspecialchars($_GET['s']) : ''; ?>">
 
                         <button type="submit" class="search-form-submit" aria-label="Search">
                         <svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" class="search-icon">
-                            <path
+                          <path
                             d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z">
-                            </path>
+                          </path>
                         </svg><span class="screen-reader-text">Search</span></button>
-                        <meta content="index.php?s={s}">
+                      <meta content="category.php?slug={slug}&s={s}">
                     </form>
-                    </div>
-                </center>
-                </div>
+                  </div>
+                  </center>
+              </div>
 
-                <!-- Qualification -->
-                <div class="sort-kaka">
-                    <b>Search by Qualification</b><br />
-                    <?php
-                    $sql = "SELECT q_title, slug FROM tbl_qualifications WHERE home_status = 1 ORDER BY q_id ASC";
-                    $result = $conn->query($sql);
+              <!-- Qualification -->
+              <div class="sort-kaka">
+                  <b>Search by Qualification</b><br />
+                  <?php
+                  $sql = "SELECT q_title, slug FROM tbl_qualifications WHERE home_status = 1 ORDER BY q_id ASC";
+                  $result = $conn->query($sql);
 
-                    $qualifications = [];
-                    if ($result->num_rows > 0) {
-                        while($row = $result->fetch_assoc()) {
+                  $qualifications = [];
+                  if ($result->num_rows > 0) {
+                      while($row = $result->fetch_assoc()) {
                         $title = $row['q_title'];
                         // $slug = $row['slug'];
                         $slug = urlencode(str_replace('-', ' ', $row['slug'])); 
                         // $slug = urlencode($title) . '+Jobs'; // slugify the title
-
                         $qualifications[] = '<a href="index.php?s=' . $slug . '">' . htmlspecialchars($title) . ' Jobs</a>';
-                        }
-                        echo implode(' | ', $qualifications);
-                    } else {
-                        echo "No qualifications found.";
-                    }
-                    ?>
-                </div>
-                <!-- Qualification -->
+                      }
+                      echo implode(' | ', $qualifications);
+                  } else {
+                      echo "No qualifications found.";
+                  }
+                  ?>
+              </div>
+              <!-- Qualification -->
 
-                <!-- Type -->
-                <div class="sort-kaka">
-                    <b>Search by Type</b><br />
+              <!-- Type -->
+              <div class="sort-kaka">
+                  <b>Search by Type</b><br />
 
-                    <?php
-                    $sql = "SELECT home_title, category_slug FROM tbl_job_types WHERE home_status = 1 ORDER BY id ASC";
-                    $result = $conn->query($sql);
+                  <?php
+                  $sql = "SELECT home_title, category_slug FROM tbl_job_types WHERE home_status = 1 ORDER BY id ASC";
+                  $result = $conn->query($sql);
 
-                    $links = [];
-                    if ($result->num_rows > 0) {
-                        while($row = $result->fetch_assoc()) {
-                        $title = $row['home_title'];
-                        // $slug1 = $row['category_slug'];
-                        // print_r($slug1);
-                        $slug = urlencode(str_replace('-', ' ', $row['category_slug'])); 
-                        // echo "<br/>";
-                        // print_r($slug);die;
-                        $links[] = '<a href="index.php?s=' . $slug . '">' . htmlspecialchars($title) . '</a>';
-                        }
+                  $links = [];
+                  if ($result->num_rows > 0) {
+                      while($row = $result->fetch_assoc()) {
+                      $title = $row['home_title'];
+                      // $slug1 = $row['category_slug'];
+                      // print_r($slug1);
+                      $slug = urlencode(str_replace('-', ' ', $row['category_slug'])); 
+                      // echo "<br/>";
+                      // print_r($slug);die;
+                      $links[] = '<a href="index.php?s=' . $slug . '">' . htmlspecialchars($title) . '</a>';
+                      }
 
-                        echo implode(' | ', $links);
-                    } else {
-                        echo "No categories found.";
-                    }
-                    ?>
-                </div>
-                <!-- Type -->
+                      echo implode(' | ', $links);
+                  } else {
+                      echo "No categories found.";
+                  }
+                  ?>
+              </div>
+              <!-- Type -->
 
-                <div class="kaka-main-heading">
-                    <center>
-                    <h1>Result For <?php echo $slugHeading; ?> </h1>
-                    </center>
-                </div>
+              <div class="kaka-main-heading">
+                  <center>
+                  <h1>Result For <?php echo $slugHeading; ?> </h1>
+                  </center>
+              </div>
 
             </div>
 
@@ -176,26 +176,58 @@
                             tbl_qualifications.slug AS qualification_slug
                         FROM tbl_job j
                         LEFT JOIN tbl_job_types ON j.job_type_id = tbl_job_types.id
-                        LEFT JOIN tbl_qualifications ON j.qualification_id = tbl_qualifications.q_id";
-
-                if (!empty($urlSlug)) {                  
-                    $sql .= " WHERE 
-                        tbl_job_types.home_title LIKE '%$urlSlug%' 
-                        OR tbl_job_types.category_slug LIKE '%$urlSlug%'";
+                        LEFT JOIN tbl_qualifications ON j.qualification_id = tbl_qualifications.q_id
+                        WHERE 1";
+                
+                if (!empty($searchTerm)) {
+                    $searchTerm = mysqli_real_escape_string($conn, $searchTerm);
+                    $sql .= " AND (
+                        j.job_title LIKE '%$searchTerm%' 
+                        OR j.salary LIKE '%$searchTerm%' 
+                        OR tbl_job_types.home_title LIKE '%$searchTerm%' 
+                        OR tbl_job_types.category_slug LIKE '%$searchTerm%' 
+                        OR tbl_qualifications.q_title LIKE '%$searchTerm%' 
+                        OR tbl_qualifications.slug LIKE '%$searchTerm%'
+                    )";
                 }
-                $sql .= " ORDER BY j.updated_on DESC LIMIT $jobsPerPage OFFSET $offset";
+                
+                if (!empty($urlSlug)) {
+                    $urlSlug = mysqli_real_escape_string($conn, $urlSlug);
+                        // -- tbl_job_types.home_title LIKE '%$urlSlug%' 
+                    $sql .= " AND (
+                        tbl_job_types.category_slug LIKE '%$urlSlug%'
+                    )";
+                }
+                
+                $sql .= " ORDER BY j.updated_on DESC LIMIT $offset, $jobsPerPage";
 
                 // count sql......
                 $countSql = "SELECT COUNT(*) AS total 
-                            FROM tbl_job j
-                            LEFT JOIN tbl_job_types ON j.job_type_id = tbl_job_types.id
-                            LEFT JOIN tbl_qualifications ON j.qualification_id = tbl_qualifications.q_id";
+                FROM tbl_job j
+                LEFT JOIN tbl_job_types ON j.job_type_id = tbl_job_types.id
+                LEFT JOIN tbl_qualifications ON j.qualification_id = tbl_qualifications.q_id
+                WHERE 1"; 
+
+                if (!empty($searchTerm)) {
+                  $searchTerm = mysqli_real_escape_string($conn, $searchTerm);
+                  $countSql .= " AND (
+                      j.job_title LIKE '%$searchTerm%' 
+                      OR j.salary LIKE '%$searchTerm%' 
+                      OR tbl_job_types.home_title LIKE '%$searchTerm%' 
+                      OR tbl_job_types.category_slug LIKE '%$searchTerm%' 
+                      OR tbl_qualifications.q_title LIKE '%$searchTerm%' 
+                      OR tbl_qualifications.slug LIKE '%$searchTerm%'
+                  )";
+                }
 
                 if (!empty($urlSlug)) {
-                    $countSql .= " WHERE 
-                        tbl_job_types.home_title LIKE '%$urlSlug%' 
-                        OR tbl_job_types.category_slug LIKE '%$urlSlug%'"; 
+                  $urlSlug = mysqli_real_escape_string($conn, $urlSlug);
+                      // -- tbl_job_types.home_title LIKE '%$urlSlug%' 
+                  $countSql .= " AND (
+                      tbl_job_types.category_slug LIKE '%$urlSlug%'
+                  )";
                 }
+
                 $totalJobsResult = $conn->query($countSql);
                 $totalJobs = $totalJobsResult->fetch_assoc()['total'];
                 $totalPages = ceil($totalJobs / $jobsPerPage);
@@ -206,29 +238,29 @@
                   while($row = $result->fetch_assoc()) {
                     echo '
                     <a class="content_link" href="' . htmlspecialchars($row['slug']) . '">
-                    <div class="entry-title">' . htmlspecialchars($row['job_title']) . '</div>
-                    <div class="bfooter">
-                        <div class="entry-job-liner-1">
-                            <span class="entry-job-date">Updated on </span>
-                            <span class="entry-job-date-details">' . date("d F Y", strtotime($row['updated_on'])) . '</span>
-                        </div>
-                        <div class="entry-job-liner-1">
-                            <span class="entry-job-date">Job Type </span>
-                            <span class="entry-job-date-details">' . htmlspecialchars($row['job_type_name']) . '</span>
-                        </div>
-                        <div class="entry-job-liner-1">
-                            <span class="entry-job-date">Qualification </span>
-                            <span class="entry-job-date-details">' . htmlspecialchars($row['qualification_name']) . '</span>
-                        </div>
-                        <div class="entry-job-liner-1">
-                            <span class="entry-job-date">Salary </span>
-                            <span class="entry-job-date-details">' . htmlspecialchars($row['salary']) . '</span>
-                        </div>
-                    </div>
+                      <div class="entry-title">' . htmlspecialchars($row['job_title']) . '</div>
+                      <div class="bfooter">
+                          <div class="entry-job-liner-1">
+                              <span class="entry-job-date">Updated on </span>
+                              <span class="entry-job-date-details">' . date("d F Y", strtotime($row['updated_on'])) . '</span>
+                          </div>
+                          <div class="entry-job-liner-1">
+                              <span class="entry-job-date">Job Type </span>
+                              <span class="entry-job-date-details">' . htmlspecialchars($row['job_type_name']) . '</span>
+                          </div>
+                          <div class="entry-job-liner-1">
+                              <span class="entry-job-date">Qualification </span>
+                              <span class="entry-job-date-details">' . htmlspecialchars($row['qualification_name']) . '</span>
+                          </div>
+                          <div class="entry-job-liner-1">
+                              <span class="entry-job-date">Salary </span>
+                              <span class="entry-job-date-details">' . htmlspecialchars($row['salary']) . '</span>
+                          </div>
+                      </div>
                     </a>';
                   }
                 } else {
-                  echo "<p>No job posts found.</p>";
+                  echo "<h3 class=''>No job posts found.</h3>";
                 }
               ?>
             </div>
@@ -241,13 +273,13 @@
                     echo '<div class="archive-pagination pagination" role="navigation" aria-label="Pagination"><ul>';
 
                     if ($page > 1) {
-                    echo '<li><a href="?page=' . ($page - 1) . '">« Prev</a></li>';
+                      echo '<li><a href="?page=' . ($page - 1) . '">« Prev</a></li>';
                     }
                     if ($totalPages <= 7 + ($adjacents * 2)) {
-                    // Not enough pages to hide
-                    for ($i = 1; $i <= $totalPages; $i++) {
-                        echo '<li class="' . ($i == $page ? 'active' : '') . '"><a href="?page=' . $i . '">' . $i . '</a></li>';
-                    }
+                      // Not enough pages to hide
+                      for ($i = 1; $i <= $totalPages; $i++) {
+                          echo '<li class="' . ($i == $page ? 'active' : '') . '"><a href="?page=' . $i . '">' . $i . '</a></li>';
+                      }
                     } else {
                     if ($page <= 3 + $adjacents) {
                         // Close to beginning
@@ -275,7 +307,7 @@
                     }
                     }
                     if ($page < $totalPages) {
-                    echo '<li class="pagination-next"><a href="?page=' . ($page + 1) . '">Next Page »</a></li>';
+                      echo '<li class="pagination-next"><a href="?page=' . ($page + 1) . '">Next Page »</a></li>';
                     }
                     echo '</ul></div>';
                 ?>

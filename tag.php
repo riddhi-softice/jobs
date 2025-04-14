@@ -23,7 +23,9 @@
   <meta property="og:site_name" content="Job Kaka" />
   <meta name="twitter:card" content="summary_large_image" />
   <!-- <script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://www.jobkaka.com/","url":"https://www.jobkaka.com/","name":"Job Kaka - Navigating Careers, Creating Futures.","isPartOf":{"@id":"https://www.jobkaka.com/#website"},"about":{"@id":"https://www.jobkaka.com/#/schema/person/bd0ad8c9ccc4c546dc5cf824ae13505f"},"description":"Navigating Careers, Creating Futures.","breadcrumb":{"@id":"https://www.jobkaka.com/#breadcrumb"},"inLanguage":"en-US"},{"@type":"BreadcrumbList","@id":"https://www.jobkaka.com/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home"}]},{"@type":"WebSite","@id":"https://www.jobkaka.com/#website","url":"https://www.jobkaka.com/","name":"Job Kaka","description":"Navigating Careers, Creating Futures.","publisher":{"@id":"https://www.jobkaka.com/#/schema/person/bd0ad8c9ccc4c546dc5cf824ae13505f"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"index.php?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"en-US"},{"@type":["Person","Organization"],"@id":"https://www.jobkaka.com/#/schema/person/bd0ad8c9ccc4c546dc5cf824ae13505f","name":"Sourav Singh","image":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://www.jobkaka.com/#/schema/person/image/","url":"wp-content/uploads/logo-4.png","contentUrl":"wp-content/uploads/logo-4.png","width":996,"height":218,"caption":"Sourav Singh"},"logo":{"@id":"https://www.jobkaka.com/#/schema/person/image/"},"sameAs":["https://www.jobkaka.com/"]}]}</script> -->
-  <!-- / Yoast SEO Premium plugin. -->
+
+      
+    <!-- / Yoast SEO Premium plugin. -->
 
   <link rel="alternate" type="application/rss+xml" title="Job Kaka &raquo; Feed" href="https://www.jobkaka.com/feed/" />
   <link rel="alternate" type="application/rss+xml" title="Job Kaka &raquo; Comments Feed" href="https://www.jobkaka.com/comments/feed/" />
@@ -85,34 +87,22 @@
                 <div class="search-area-kaka">
                     <center>
                     <div class="kaka-search">
-                        <!-- <form class="search-form" method="get" action="tag.php?slug=<?php echo $urlSlug; ?>" role="search">
-                            <label class="search-form-label screen-reader-text" for="searchform-1">Search Jobs</label>
+                      <form class="search-form" method="get" action="tag.php" role="search">
+                        <label class="search-form-label screen-reader-text" for="searchform-1">Search Jobs</label>
+                          
+                          <input type="hidden" name="slug" value="<?php echo $urlSlug; ?>">
 
-                            <input required class="search-form-input" type="search" name="s" id="searchform-1"
-                                placeholder="Search Jobs" value="<?php echo isset($_GET['s']) ? htmlspecialchars($_GET['s']) : ''; ?>">
+                          <input required class="search-form-input" type="search" name="s" id="searchform-1"
+                            placeholder="Search Jobs" value="<?php echo isset($_GET['s']) ? htmlspecialchars($_GET['s']) : ''; ?>">
 
-                            <button type="submit" class="search-form-submit" aria-label="Search">
-                            <svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" class="search-icon">
-                                <path
-                                d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z">
-                                </path>
-                            </svg><span class="screen-reader-text">Search</span></button>
-                        </form> -->
-
-                        <form class="search-form" method="get" action="tag.php?slug=<?php echo $urlSlug; ?>" role="search">
-                            <label class="search-form-label screen-reader-text" for="searchform-1">Search Jobs</label>
-
-                            <input required class="search-form-input" type="search" name="s" id="searchform-1"
-                                placeholder="Search Jobs"
-                                value="<?php echo isset($_GET['s']) ? htmlspecialchars($_GET['s']) : ''; ?>">
-
-                            <button type="submit" class="search-form-submit" aria-label="Search">
-                                <svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" class="search-icon">
-                                    <path d="..."></path>
-                                </svg>
-                                <span class="screen-reader-text">Search</span>
-                            </button>
-                        </form>
+                          <button type="submit" class="search-form-submit" aria-label="Search">
+                          <svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" class="search-icon">
+                            <path
+                              d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z">
+                            </path>
+                          </svg><span class="screen-reader-text">Search</span></button>
+                        <meta content="tag.php?slug={slug}&s={s}">
+                      </form>
                     </div>
                     </center>
                 </div>
@@ -189,17 +179,7 @@
                             tbl_qualifications.slug AS qualification_slug
                         FROM tbl_job j
                         LEFT JOIN tbl_job_types ON j.job_type_id = tbl_job_types.id
-                        LEFT JOIN tbl_qualifications ON j.qualification_id = tbl_qualifications.q_id";
-                        
-                // if (!empty($searchTerm)) {  
-                //     $sql .= " WHERE 
-                //     j.job_title LIKE '%$searchTerm%' 
-                //     OR j.salary LIKE '%$searchTerm%' 
-                //     OR tbl_job_types.home_title LIKE '%$searchTerm%' 
-                //     OR tbl_job_types.category_slug LIKE '%$searchTerm%' 
-                //     OR tbl_qualifications.q_title LIKE '%$searchTerm%' 
-                //     OR tbl_qualifications.slug LIKE '%$searchTerm%'";
-                // }
+                        LEFT JOIN tbl_qualifications ON j.qualification_id = tbl_qualifications.q_id";                       
 
                 if (!empty($searchTerm)) {
                     $sql .= " AND (
@@ -212,10 +192,13 @@
                     )";
                 }               
                 if (!empty($urlSlug)) {                  
+                    // $sql .= "  WHERE 
+                    //     tbl_qualifications.q_title LIKE '%$urlSlug%' 
+                    //     OR tbl_qualifications.slug LIKE '%$urlSlug%'";
                     $sql .= "  WHERE 
-                        tbl_qualifications.q_title LIKE '%$urlSlug%' 
-                        OR tbl_qualifications.slug LIKE '%$urlSlug%'";
+                        tbl_qualifications.slug = '$urlSlug'";
                 }
+
                 $sql .= " ORDER BY j.updated_on DESC LIMIT $jobsPerPage OFFSET $offset";
 
                 // count sql......
@@ -224,10 +207,20 @@
                             LEFT JOIN tbl_job_types ON j.job_type_id = tbl_job_types.id
                             LEFT JOIN tbl_qualifications ON j.qualification_id = tbl_qualifications.q_id";
 
+                if (!empty($searchTerm)) {
+                  $countSql .= " AND (
+                      j.job_title LIKE '%$searchTerm%' 
+                      OR j.salary LIKE '%$searchTerm%' 
+                      OR tbl_job_types.home_title LIKE '%$searchTerm%' 
+                      OR tbl_job_types.category_slug LIKE '%$searchTerm%' 
+                      OR tbl_qualifications.q_title LIKE '%$searchTerm%' 
+                      OR tbl_qualifications.slug LIKE '%$searchTerm%'
+                  )";
+                }      
+
                 if (!empty($urlSlug)) {
                     $countSql .= " WHERE 
-                        tbl_qualifications.q_title LIKE '%$urlSlug%' 
-                        OR tbl_qualifications.slug LIKE '%$urlSlug%'";
+                      tbl_qualifications.slug = '$urlSlug'";
                 }
                 $totalJobsResult = $conn->query($countSql);
                 $totalJobs = $totalJobsResult->fetch_assoc()['total'];

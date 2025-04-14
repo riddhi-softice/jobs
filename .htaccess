@@ -1,2 +1,5 @@
 RewriteEngine On
 RewriteRule ^category.php/([a-zA-Z0-9-]+)/?$ category.php?slug=$1 [L,QSA]
+
+# Rewrite /tag/slug to tag.php
+RewriteRule ^tag/([^/]+)/?$ tag.php?slug=$1 [QSA,L]

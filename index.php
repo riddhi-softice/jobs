@@ -217,7 +217,7 @@
                 </div>
               </div>
 
-              <div class="view-more-link"><a href="https://www.jobkaka.com/tag/trending/">View More Trending Jobs</a>
+              <div class="view-more-link"><a href="trending.php">View More Trending Jobs</a>
               </div>
               <!-- top jobs -->
 
